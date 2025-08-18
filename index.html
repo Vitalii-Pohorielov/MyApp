@@ -24,9 +24,19 @@
     .block {
       background: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       text-align: center;
+    }
+    .block img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .block h2 {
+      margin: 10px 0;
+      font-size: 1.2em;
     }
     button {
       display: block;
@@ -49,7 +59,7 @@
       cursor: default;
     }
 
-    /* Для очень маленьких экранов */
+    /* Для маленьких экранов */
     @media (max-width: 400px) {
       body {
         margin: 10px;
@@ -70,18 +80,21 @@
 <div class="container">
   
   <div class="block">
+    <img src="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/Energy.png" alt="Электричество">
     <h2>Электричество</h2>
     <button onclick="copyCode(this, '6010736321')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1011/balance')">Перейти на сайт</button>
   </div>
   
   <div class="block">
+    <img src="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/download%20(2).png" alt="Газ">
     <h2>Газ</h2>
     <button onclick="copyCode(this, '001113278265')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1049/balance')">Перейти на сайт</button>
   </div>
   
   <div class="block">
+    <img src="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/images.png" alt="Лифт">
     <h2>Лифт</h2>
     <button onclick="copyCode(this, '97076747')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/5000/balance')">Перейти на сайт</button>
