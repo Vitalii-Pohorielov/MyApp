@@ -1,21 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ToDo App</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Оплата коммунальных</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f4f4f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+    .block {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>ToDo App</h1>
-    <div class="todo-input">
-      <input type="text" id="taskInput" placeholder="Введите задачу...">
-      <button id="addBtn">Добавить</button>
-    </div>
-    <ul id="taskList"></ul>
+
+<h1>Оплата коммунальных услуг</h1>
+<div class="container">
+  
+  <div class="block">
+    <h2>Электричество</h2>
+    <button onclick="copyCode('6010736321')">Копировать код</button>
+    <button onclick="goToSite('https://pay.ge/providers/1011/balance')">Перейти на сайт</button>
+  </div>
+  
+  <div class="block">
+    <h2>Газ</h2>
+    <button onclick="copyCode('001113278265')">Копировать код</button>
+    <button onclick="goToSite('https://pay.ge/providers/1049/balance')">Перейти на сайт</button>
+  </div>
+  
+  <div class="block">
+    <h2>Лифт</h2>
+    <button onclick="copyCode('97076747')">Копировать код</button>
+    <button onclick="goToSite('https://pay.ge/providers/5000/balance')">Перейти на сайт</button>
   </div>
 
-  <script src="script.js"></script>
+</div>
+
+<script>
+  function copyCode(code) {
+    navigator.clipboard.writeText(code).then(() => {
+      alert("Код " + code + " скопирован!");
+    });
+  }
+
+  function goToSite(url) {
+    window.open(url, "_blank");
+  }
+</script>
+
 </body>
 </html>
