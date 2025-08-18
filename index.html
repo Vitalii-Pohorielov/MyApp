@@ -49,28 +49,35 @@
   
   <div class="block">
     <h2>Электричество</h2>
-    <button onclick="copyCode('6010736321')">Копировать код</button>
+    <button onclick="copyCode(this, '6010736321')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1011/balance')">Перейти на сайт</button>
   </div>
   
   <div class="block">
     <h2>Газ</h2>
-    <button onclick="copyCode('001113278265')">Копировать код</button>
+    <button onclick="copyCode(this, '001113278265')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1049/balance')">Перейти на сайт</button>
   </div>
   
   <div class="block">
     <h2>Лифт</h2>
-    <button onclick="copyCode('97076747')">Копировать код</button>
+    <button onclick="copyCode(this, '97076747')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/5000/balance')">Перейти на сайт</button>
   </div>
 
 </div>
 
 <script>
-  function copyCode(code) {
+  function copyCode(button, code) {
     navigator.clipboard.writeText(code).then(() => {
-      alert("Код " + code + " скопирован!");
+      const originalText = button.innerText;
+      button.innerText = "Скопировано!";
+      button.disabled = true;
+
+      setTimeout(() => {
+        button.innerText = originalText;
+        button.disabled = false;
+      }, 2000); // 2 секунды
     });
   }
 
