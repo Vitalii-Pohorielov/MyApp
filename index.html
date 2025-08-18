@@ -2,21 +2,23 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Оплата коммунальных</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 40px;
+      margin: 20px;
       background: #f4f4f9;
     }
     h1 {
       text-align: center;
+      font-size: 1.5em;
     }
     .container {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      max-width: 400px;
+      max-width: 500px;
       margin: auto;
     }
     .block {
@@ -27,18 +29,38 @@
       text-align: center;
     }
     button {
-      margin: 5px;
-      padding: 10px 15px;
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 14px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       background-color: #007bff;
       color: white;
-      font-size: 14px;
+      font-size: 16px;
       transition: 0.2s;
     }
     button:hover {
       background-color: #0056b3;
+    }
+    button:disabled {
+      background-color: #28a745; /* зелёный при "Скопировано" */
+      cursor: default;
+    }
+
+    /* Для очень маленьких экранов */
+    @media (max-width: 400px) {
+      body {
+        margin: 10px;
+      }
+      .block {
+        padding: 15px;
+      }
+      button {
+        font-size: 14px;
+        padding: 12px;
+      }
     }
   </style>
 </head>
