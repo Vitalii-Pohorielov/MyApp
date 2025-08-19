@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeBtn = document.getElementById("themeToggle");
   const html = document.documentElement;
 
-  // Загружаем сохранённую тему
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
     html.classList.add("dark");
@@ -17,16 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
     themeBtn.innerText = "Тёмная тема";
   }
 
-  // Переключение темы
   themeBtn.addEventListener("click", () => {
+    html.classList.toggle("dark");
     if (html.classList.contains("dark")) {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      themeBtn.innerText = "Тёмная тема";
-    } else {
-      html.classList.add("dark");
       localStorage.setItem("theme", "dark");
       themeBtn.innerText = "Светлая тема";
+    } else {
+      localStorage.setItem("theme", "light");
+      themeBtn.innerText = "Тёмная тема";
     }
   });
 });
@@ -82,7 +79,7 @@ function goToSite(url) {
   window.open(url, "_blank");
 }
 
-// Загрузка и выбор стеков
+// Стек коды
 function loadStacks() {
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const select = document.getElementById('stackSelect');
@@ -100,11 +97,9 @@ function loadStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
   if (!name) return;
-
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const stack = stacks[name];
   if (!stack) return;
-
   document.getElementById('stackName').value = name;
   document.getElementById('codeElectricity').value = stack.electricity;
   document.getElementById('codeGas').value = stack.gas;
@@ -114,7 +109,6 @@ function loadStack() {
 function saveStack() {
   const nameInput = document.getElementById('stackName').value.trim();
   if (!nameInput) return;
-
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   stacks[nameInput] = {
     electricity: document.getElementById('codeElectricity').value,
@@ -190,7 +184,6 @@ function selectActiveStack() {
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const stack = stacks[name];
   if (!stack) return;
-
   document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
   document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
   document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
