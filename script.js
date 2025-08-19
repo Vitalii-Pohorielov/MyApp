@@ -1,11 +1,21 @@
-// ----------------- Авторизация -----------------
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
   animateBlocks();
-  loadActiveStackSelect(); // загрузка стека на главный экран
+  loadActiveStackSelect();
 });
 
+// Функция плавного появления карточек
+function animateBlocks() {
+  const blocks = document.querySelectorAll('.block');
+  blocks.forEach((block, index) => {
+    setTimeout(() => {
+      block.classList.add('opacity-100', 'translate-y-0');
+    }, index * 150);
+  });
+}
+
+// Google Sign-In
 function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
   localStorage.setItem("user", JSON.stringify(data));
@@ -41,7 +51,7 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-// ----------------- Копирование кодов -----------------
+// Копирование кодов
 function copyCode(button, code) {
   navigator.clipboard.writeText(code).then(() => {
     const originalText = button.innerText;
@@ -60,7 +70,7 @@ function goToSite(url) {
   window.open(url, "_blank");
 }
 
-// ----------------- Стек кодов -----------------
+// Стек кодов
 function loadStacks() {
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const select = document.getElementById('stackSelect');
@@ -89,13 +99,11 @@ function saveStack() {
   loadActiveStackSelect();
   document.getElementById('stackName').value = '';
 
-  // Изменяем текст кнопки на "Сохранено" зелёным
   const btn = document.querySelector('#editModal button[onclick="saveStack()"]');
   const originalText = btn.innerText;
   btn.innerText = "Сохранено";
   btn.style.backgroundColor = "#28a745";
   btn.disabled = true;
-
   setTimeout(() => {
     btn.innerText = originalText;
     btn.style.backgroundColor = "#007bff";
@@ -107,18 +115,13 @@ function loadStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
   const stackInput = document.getElementById('stackName');
-
-  if (!name) {
-    stackInput.placeholder = '';
-    return;
-  }
+  if (!name) { stackInput.placeholder = ''; return; }
 
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const stack = stacks[name];
   if (!stack) return;
 
   stackInput.placeholder = name;
-
   document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
   document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
   document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
@@ -139,14 +142,17 @@ function deleteStack() {
   loadActiveStackSelect();
 }
 
-// ----------------- Модальное окно -----------------
+// Модальное окно
 function openEditModal() {
-  document.getElementById('editModal').style.display = 'block';
-  loadStacks();
+  const modal = document.getElementById('editModal');
+  modal.classList.remove('hidden');
+  setTimeout(() => modal.classList.add('opacity-100'), 10);
 }
 
 function closeEditModal() {
-  document.getElementById('editModal').style.display = 'none';
+  const modal = document.getElementById('editModal');
+  modal.classList.remove('opacity-100');
+  setTimeout(() => modal.classList.add('hidden'), 300);
 }
 
 window.onclick = function(event) {
@@ -154,7 +160,7 @@ window.onclick = function(event) {
   if (event.target === modal) closeEditModal();
 }
 
-// ----------------- Выпадающий список на главном экране -----------------
+// Выпадающий список на главном экране
 function loadActiveStackSelect() {
   const select = document.getElementById('activeStack');
   select.innerHTML = '';
@@ -165,10 +171,7 @@ function loadActiveStackSelect() {
     option.text = name;
     select.appendChild(option);
   }
-  if (select.options.length > 0) {
-    select.value = select.options[0].value;
-    selectActiveStack();
-  }
+  if (select.options.length > 0) selectActiveStack();
 }
 
 function selectActiveStack() {
@@ -183,15 +186,4 @@ function selectActiveStack() {
   document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
   document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
   document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
-}
-
-// ----------------- Анимация карточек -----------------
-function animateBlocks() {
-  const blocks = document.querySelectorAll('.block');
-  blocks.forEach((block, index) => {
-    setTimeout(() => {
-      block.style.opacity = 1;
-      block.style.transform = 'translateY(0)';
-    }, index * 150);
-  });
 }
