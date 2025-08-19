@@ -1,32 +1,25 @@
+// Проверка авторизации при загрузке
 document.addEventListener("DOMContentLoaded", () => {
-  // Проверяем, авторизован ли пользователь
-  const user = localStorage.getItem("user");
-  if (user) {
-    showApp(JSON.parse(user));
-  }
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) showApp(user);
+  loadStacks();
 });
 
 function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
-  console.log("Пользователь:", data);
-
-  // Сохраняем в localStorage
   localStorage.setItem("user", JSON.stringify(data));
-
   showApp(data);
 }
 
 function showApp(data) {
   document.getElementById("header").innerText = "Добро пожаловать, " + data.name;
   document.querySelector(".container").style.display = "flex";
-
   document.querySelector("#g_id_onload").style.display = "none";
   document.querySelector(".g_id_signin").style.display = "none";
 }
 
 function logout() {
   localStorage.removeItem("user");
-  // Возвращаемся на страницу входа
   document.getElementById("header").innerText = "Авторизация";
   document.querySelector(".container").style.display = "none";
   document.querySelector("#g_id_onload").style.display = "block";
@@ -39,9 +32,7 @@ function parseJwt(token) {
   let jsonPayload = decodeURIComponent(
     atob(base64)
       .split('')
-      .map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
+      .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
       .join('')
   );
   return JSON.parse(jsonPayload);
@@ -61,4 +52,60 @@ function copyCode(button, code) {
 
 function goToSite(url) {
   window.open(url, "_blank");
+}
+
+// ----------------- Стек кодов -----------------
+function loadStacks() {
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  const select = document.getElementById('stackSelect');
+  select.innerHTML = '';
+  for (let name in stacks) {
+    const option = document.createElement('option');
+    option.value = name;
+    option.text = name;
+    select.appendChild(option);
+  }
+  if (select.options.length > 0) loadStack();
+}
+
+function saveStack() {
+  const name = document.getElementById('stackName').value.trim();
+  if (!name) return alert('Введите имя стека');
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  stacks[name] = {
+    electricity: document.getElementById('codeElectricity').value,
+    gas: document.getElementById('codeGas').value,
+    lift: document.getElementById('codeLift').value
+  };
+  localStorage.setItem('stacks', JSON.stringify(stacks));
+  loadStacks();
+  document.getElementById('stackName').value = '';
+  alert('Стек сохранён');
+}
+
+function loadStack() {
+  const select = document.getElementById('stackSelect');
+  const name = select.value;
+  if (!name) return;
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  const stack = stacks[name];
+  if (!stack) return;
+
+  document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
+  document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
+  document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
+
+  document.getElementById('codeElectricity').value = stack.electricity;
+  document.getElementById('codeGas').value = stack.gas;
+  document.getElementById('codeLift').value = stack.lift;
+}
+
+function deleteStack() {
+  const select = document.getElementById('stackSelect');
+  const name = select.value;
+  if (!name) return;
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  delete stacks[name];
+  localStorage.setItem('stacks', JSON.stringify(stacks));
+  loadStacks();
 }

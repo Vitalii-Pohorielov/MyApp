@@ -28,28 +28,44 @@
 
 <!-- Основное содержимое -->
 <div class="container" id="app">
-  
+
+  <!-- Стек кодов -->
+  <div id="stacksManager">
+    <h3>Выберите стек кодов</h3>
+    <select id="stackSelect" onchange="loadStack()"></select>
+    <button onclick="deleteStack()">Удалить выбранный</button>
+
+    <h4>Создать/Редактировать стек</h4>
+    <label>Имя стека: <input type="text" id="stackName"></label><br>
+    <label>Электричество: <input type="text" id="codeElectricity"></label><br>
+    <label>Газ: <input type="text" id="codeGas"></label><br>
+    <label>Лифт: <input type="text" id="codeLift"></label><br>
+    <button onclick="saveStack()">Сохранить стек</button>
+  </div>
+
+  <!-- Карточки коммунальных услуг -->
   <div class="block">
     <img src="asset/Energy.png" alt="Электричество">
     <h2>Электричество</h2>
-    <button onclick="copyCode(this, '6010736321')">Копировать код</button>
+    <button id="btnElectricity">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1011/balance')">Перейти на сайт</button>
   </div>
-  
+
   <div class="block">
     <img src="asset/download (2).png" alt="Газ">
     <h2>Газ</h2>
-    <button onclick="copyCode(this, '001113278265')">Копировать код</button>
+    <button id="btnGas">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1049/balance')">Перейти на сайт</button>
   </div>
-  
+
   <div class="block">
     <img src="asset/images.png" alt="Лифт">
     <h2>Лифт</h2>
-    <button onclick="copyCode(this, '97076747')">Копировать код</button>
+    <button id="btnLift">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/5000/balance')">Перейти на сайт</button>
   </div>
 
+  <!-- Кнопка выхода -->
   <button id="logoutBtn" onclick="logout()">Выйти</button>
 </div>
 
