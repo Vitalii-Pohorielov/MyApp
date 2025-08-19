@@ -119,22 +119,9 @@ function loadStack() {
 
   stackInput.placeholder = name;
 
+  document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
+  document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
+  document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
+
   document.getElementById('codeElectricity').value = stack.electricity;
-  document.getElementById('codeGas').value = stack.gas;
-  document.getElementById('codeLift').value = stack.lift;
-}
-
-function deleteStack() {
-  const select = document.getElementById('stackSelect');
-  const name = select.value;
-  if (!name) return;
-  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
-  delete stacks[name];
-  localStorage.setItem('stacks', JSON.stringify(stacks));
-  loadStacks();
-  loadActiveStackSelect();
-}
-
-// ----------------- Модальное окно -----------------
-function openEditModal() {
-  document.getElementById('editModal').style.display = '
+  document.getElementById
