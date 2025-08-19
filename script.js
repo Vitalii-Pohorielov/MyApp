@@ -2,7 +2,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
-  loadStacks();
   animateBlocks();
 });
 
@@ -90,7 +89,7 @@ function loadStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
   const stackInput = document.getElementById('stackName');
-  
+
   if (!name) {
     stackInput.placeholder = '';
     return;
@@ -122,12 +121,19 @@ function deleteStack() {
   loadStacks();
 }
 
-// ----------------- Показ/скрытие формы редактирования -----------------
-function toggleStackForm() {
-  const form = document.getElementById('stackForm');
-  const btn = document.getElementById('toggleStackFormBtn');
-  form.classList.toggle('open');
-  btn.innerText = form.classList.contains('open') ? 'Создать/Редактировать стек ▲' : 'Создать/Редактировать стек ▼';
+// ----------------- Модальное окно -----------------
+function openEditModal() {
+  document.getElementById('editModal').style.display = 'block';
+  loadStacks();
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('editModal');
+  if (event.target === modal) closeEditModal();
 }
 
 // ----------------- Анимация карточек -----------------

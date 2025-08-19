@@ -11,7 +11,7 @@
 
 <h1 id="header">Авторизация</h1>
 
-<!-- Кнопка входа через Google -->
+<!-- Google Sign-In -->
 <div id="g_id_onload"
      data-client_id="749628422725-qu039o4drhetfu6f9eghfaodq1qqfqfs.apps.googleusercontent.com"
      data-callback="handleCredentialResponse"
@@ -26,25 +26,11 @@
      data-logo_alignment="left">
 </div>
 
-<!-- Основное содержимое -->
+<!-- Основное приложение -->
 <div class="container" id="app">
 
-  <!-- Стек кодов -->
-  <div id="stacksManager">
-    <h3>Выберите стек кодов</h3>
-    <select id="stackSelect" onchange="loadStack()"></select>
-    <button onclick="deleteStack()">Удалить выбранный</button>
-
-    <button id="toggleStackFormBtn" onclick="toggleStackForm()">Создать/Редактировать стек ▼</button>
-
-    <div id="stackForm">
-      <label>Имя стека: <input type="text" id="stackName"></label><br>
-      <label>Электричество: <input type="text" id="codeElectricity"></label><br>
-      <label>Газ: <input type="text" id="codeGas"></label><br>
-      <label>Лифт: <input type="text" id="codeLift"></label><br>
-      <button onclick="saveStack()">Сохранить стек</button>
-    </div>
-  </div>
+  <!-- Кнопка открытия редактирования стеков -->
+  <button id="openEditBtn" onclick="openEditModal()">Редактировать коды</button>
 
   <!-- Карточки коммунальных услуг -->
   <div class="block">
@@ -70,6 +56,21 @@
 
   <!-- Кнопка выхода -->
   <button id="logoutBtn" onclick="logout()">Выйти</button>
+</div>
+
+<!-- Модальное окно редактирования стека -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h3>Редактирование стека</h3>
+    <select id="stackSelect" onchange="loadStack()"></select>
+    <button onclick="deleteStack()">Удалить выбранный</button>
+    <label>Имя стека: <input type="text" id="stackName" placeholder=""></label><br>
+    <label>Электричество: <input type="text" id="codeElectricity"></label><br>
+    <label>Газ: <input type="text" id="codeGas"></label><br>
+    <label>Лифт: <input type="text" id="codeLift"></label><br>
+    <button onclick="saveStack()">Сохранить стек</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
