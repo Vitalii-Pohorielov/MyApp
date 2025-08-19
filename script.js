@@ -44,9 +44,11 @@ function copyCode(button, code) {
   navigator.clipboard.writeText(code).then(() => {
     const originalText = button.innerText;
     button.innerText = "Скопировано!";
+    button.style.backgroundColor = "#28a745";
     button.disabled = true;
     setTimeout(() => {
       button.innerText = originalText;
+      button.style.backgroundColor = "#007bff";
       button.disabled = false;
     }, 2000);
   });
@@ -73,6 +75,7 @@ function loadStacks() {
 function saveStack() {
   const name = document.getElementById('stackName').value.trim();
   if (!name) return alert('Введите имя стека');
+
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   stacks[name] = {
     electricity: document.getElementById('codeElectricity').value,
@@ -82,7 +85,19 @@ function saveStack() {
   localStorage.setItem('stacks', JSON.stringify(stacks));
   loadStacks();
   document.getElementById('stackName').value = '';
-  alert('Стек сохранён');
+
+  // Изменяем текст кнопки на "Сохранено" зелёным
+  const btn = document.querySelector('#editModal button[onclick="saveStack()"]');
+  const originalText = btn.innerText;
+  btn.innerText = "Сохранено";
+  btn.style.backgroundColor = "#28a745";
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.innerText = originalText;
+    btn.style.backgroundColor = "#007bff";
+    btn.disabled = false;
+  }, 2000);
 }
 
 function loadStack() {
