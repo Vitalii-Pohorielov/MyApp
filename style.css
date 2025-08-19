@@ -17,6 +17,20 @@ h1 {
   margin: auto;
 }
 
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+select, input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
 button {
   display: block;
   width: 100%;

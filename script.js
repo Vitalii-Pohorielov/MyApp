@@ -124,4 +124,4 @@ function loadStack() {
   document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
 
   document.getElementById('codeElectricity').value = stack.electricity;
-  document.getElementById
+  // document.getElementById // Removed incomplete line to fix syntax error
