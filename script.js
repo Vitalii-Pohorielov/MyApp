@@ -20,16 +20,36 @@ function openLink(url) {
 function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
 
-  // Скрываем секцию авторизации
-  document.getElementById("auth-section").classList.add("hidden");
+  // Сохраняем данные в localStorage
+  localStorage.setItem("user", JSON.stringify(data));
 
-  // Показываем приложение
+  showApp(data);
+}
+
+// Показать приложение после авторизации
+function showApp(data) {
+  document.getElementById("auth-section").classList.add("hidden");
   document.getElementById("app-section").classList.remove("hidden");
 
-  // Показываем данные пользователя
   document.getElementById("user-name").innerText = data.name;
   document.getElementById("user-pic").src = data.picture;
 }
+
+// Выход
+function logout() {
+  localStorage.removeItem("user");
+  document.getElementById("app-section").classList.add("hidden");
+  document.getElementById("auth-section").classList.remove("hidden");
+}
+
+// Проверка, был ли пользователь уже авторизован
+window.onload = function() {
+  const savedUser = localStorage.getItem("user");
+  if (savedUser) {
+    const data = JSON.parse(savedUser);
+    showApp(data);
+  }
+};
 
 // Парсим JWT
 function parseJwt(token) {

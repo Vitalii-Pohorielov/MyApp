@@ -26,6 +26,15 @@ body {
   margin: 15px 0;
 }
 
+#logout-btn {
+  margin-top: 10px;
+  background: #dc3545;
+}
+
+#logout-btn:hover {
+  background: #b02a37;
+}
+
 .cards {
   display: flex;
   flex-direction: column;
