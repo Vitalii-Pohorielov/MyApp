@@ -1,4 +1,4 @@
-// Проверка авторизации при загрузке
+// ----------------- Авторизация -----------------
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
@@ -18,10 +18,6 @@ function showApp(data) {
   document.querySelector(".container").style.display = "flex";
   document.querySelector("#g_id_onload").style.display = "none";
   document.querySelector(".g_id_signin").style.display = "none";
-
-  // Подставляем имя профиля в placeholder поля "Имя стека"
-  const stackInput = document.getElementById('stackSelect');
-  stackInput.placeholder = data.name;
 }
 
 function logout() {
@@ -44,6 +40,7 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
+// ----------------- Копирование кодов -----------------
 function copyCode(button, code) {
   navigator.clipboard.writeText(code).then(() => {
     const originalText = button.innerText;
@@ -92,10 +89,19 @@ function saveStack() {
 function loadStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
-  if (!name) return;
+  const stackInput = document.getElementById('stackName');
+  
+  if (!name) {
+    stackInput.placeholder = '';
+    return;
+  }
+
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const stack = stacks[name];
   if (!stack) return;
+
+  // Подставляем название стека в placeholder
+  stackInput.placeholder = name;
 
   document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
   document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
@@ -124,13 +130,13 @@ function toggleStackForm() {
   btn.innerText = form.classList.contains('open') ? 'Создать/Редактировать стек ▲' : 'Создать/Редактировать стек ▼';
 }
 
-// ----------------- Анимация карточек при входе -----------------
+// ----------------- Анимация карточек -----------------
 function animateBlocks() {
   const blocks = document.querySelectorAll('.block');
   blocks.forEach((block, index) => {
     setTimeout(() => {
       block.style.opacity = 1;
       block.style.transform = 'translateY(0)';
-    }, index * 150); // задержка 150ms между блоками
+    }, index * 150);
   });
 }
