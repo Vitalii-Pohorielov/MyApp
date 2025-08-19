@@ -29,6 +29,10 @@
 <!-- Основное приложение -->
 <div class="container" id="app">
 
+  <!-- Выбор активного стека -->
+  <label for="activeStack">Выберите стек кодов:</label>
+  <select id="activeStack" onchange="selectActiveStack()"></select>
+
   <!-- Кнопка открытия редактирования стеков -->
   <button id="openEditBtn" onclick="openEditModal()">Редактировать коды</button>
 
