@@ -1,80 +1,71 @@
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background: #f4f4f9;
-  text-align: center;
-}
-
-h1 {
-  font-size: 1.5em;
+  background: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .container {
-  display: none; /* скрыто, пока пользователь не вошёл */
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.cards {
+  display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 500px;
-  margin: auto;
+  margin-top: 20px;
 }
 
-.block {
-  background: white;
+.card {
+  background: #fff;
+  border-radius: 16px;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.block img {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-.block h2 {
-  margin: 10px 0;
-  font-size: 1.2em;
+.icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
 }
 
 button {
-  display: block;
   width: 100%;
-  margin: 8px 0;
-  padding: 14px;
+  padding: 12px;
+  margin-top: 8px;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: #007bff;
+  border-radius: 10px;
+  background: #007bff;
   color: white;
   font-size: 16px;
-  transition: 0.2s;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background: #0056b3;
 }
 
-button:disabled {
-  background-color: #28a745; /* зелёный при "Скопировано" */
-  cursor: default;
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-top: 15px;
 }
 
-#g_id_onload,
-.g_id_signin {
-  display: block;
-  margin: 30px auto;
+#user-info {
+  margin: 15px 0;
 }
 
-/* Для маленьких экранов */
-@media (max-width: 400px) {
-  body {
-    margin: 10px;
-  }
-  .block {
-    padding: 15px;
-  }
-  button {
-    font-size: 14px;
-    padding: 12px;
-  }
+.hidden {
+  display: none;
 }
