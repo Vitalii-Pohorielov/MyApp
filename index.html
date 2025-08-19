@@ -31,8 +31,6 @@
   <!-- Главный контейнер приложения -->
   <div class="container hidden flex-col p-4 space-y-4 max-w-md mx-auto">
 
-
-
     <!-- Выбор стека (только select) -->
     <select id="activeStack" class="w-full p-2 border rounded-lg mb-4" onchange="selectActiveStack()"></select>
 
@@ -50,6 +48,11 @@
 
     <!-- Кнопка редактирования стека -->
     <button onclick="openEditModal()" class="mt-4 p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">Создать/Редактировать стек</button>
+
+    <!-- Кнопка Выйти (внизу) -->
+    <div class="flex justify-center mt-4">
+      <button onclick="logout()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Выйти</button>
+    </div>
   </div>
 
   <!-- Модальное окно редактирования стека -->
@@ -73,11 +76,6 @@
       </div>
     </div>
   </div>
-
-      <!-- Кнопка Выйти -->
-    <div class="flex justify-end mb-2">
-      <button onclick="logout()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Выйти</button>
-    </div>
 
 </body>
 </html>
