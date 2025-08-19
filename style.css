@@ -50,6 +50,14 @@ button {
   transition: 0.2s;
 }
 
+#logoutBtn {
+  margin-top: 20px;
+  background-color: #dc3545; /* красная */
+}
+#logoutBtn:hover {
+  background-color: #a71d2a;
+}
+
 button:hover {
   background-color: #0056b3;
 }

@@ -1,14 +1,36 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Проверяем, авторизован ли пользователь
+  const user = localStorage.getItem("user");
+  if (user) {
+    showApp(JSON.parse(user));
+  }
+});
+
 function handleCredentialResponse(response) {
-  // Расшифровка JWT токена
   const data = parseJwt(response.credential);
   console.log("Пользователь:", data);
 
-  document.querySelector("h1").innerText = "Добро пожаловать, " + data.name;
+  // Сохраняем в localStorage
+  localStorage.setItem("user", JSON.stringify(data));
+
+  showApp(data);
+}
+
+function showApp(data) {
+  document.getElementById("header").innerText = "Добро пожаловать, " + data.name;
   document.querySelector(".container").style.display = "flex";
 
-  // Скрываем кнопку входа
   document.querySelector("#g_id_onload").style.display = "none";
   document.querySelector(".g_id_signin").style.display = "none";
+}
+
+function logout() {
+  localStorage.removeItem("user");
+  // Возвращаемся на страницу входа
+  document.getElementById("header").innerText = "Авторизация";
+  document.querySelector(".container").style.display = "none";
+  document.querySelector("#g_id_onload").style.display = "block";
+  document.querySelector(".g_id_signin").style.display = "block";
 }
 
 function parseJwt(token) {
