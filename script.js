@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
   animateBlocks();
-  loadActiveStackSelect(); // загрузка стека на главный экран
 });
 
 function handleCredentialResponse(response) {
@@ -11,7 +10,6 @@ function handleCredentialResponse(response) {
   localStorage.setItem("user", JSON.stringify(data));
   showApp(data);
   animateBlocks();
-  loadActiveStackSelect();
 }
 
 function showApp(data) {
@@ -86,7 +84,6 @@ function saveStack() {
   };
   localStorage.setItem('stacks', JSON.stringify(stacks));
   loadStacks();
-  loadActiveStackSelect();
   document.getElementById('stackName').value = '';
 
   // Изменяем текст кнопки на "Сохранено" зелёным
@@ -117,6 +114,7 @@ function loadStack() {
   const stack = stacks[name];
   if (!stack) return;
 
+  // Подставляем название стека в placeholder
   stackInput.placeholder = name;
 
   document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
@@ -124,4 +122,42 @@ function loadStack() {
   document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
 
   document.getElementById('codeElectricity').value = stack.electricity;
-  // document.getElementById // Removed incomplete line to fix syntax error
+  document.getElementById('codeGas').value = stack.gas;
+  document.getElementById('codeLift').value = stack.lift;
+}
+
+function deleteStack() {
+  const select = document.getElementById('stackSelect');
+  const name = select.value;
+  if (!name) return;
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  delete stacks[name];
+  localStorage.setItem('stacks', JSON.stringify(stacks));
+  loadStacks();
+}
+
+// ----------------- Модальное окно -----------------
+function openEditModal() {
+  document.getElementById('editModal').style.display = 'block';
+  loadStacks();
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('editModal');
+  if (event.target === modal) closeEditModal();
+}
+
+// ----------------- Анимация карточек -----------------
+function animateBlocks() {
+  const blocks = document.querySelectorAll('.block');
+  blocks.forEach((block, index) => {
+    setTimeout(() => {
+      block.style.opacity = 1;
+      block.style.transform = 'translateY(0)';
+    }, index * 150);
+  });
+}
