@@ -3,12 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
   loadStacks();
+  animateBlocks();
 });
 
 function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
   localStorage.setItem("user", JSON.stringify(data));
   showApp(data);
+  animateBlocks();
 }
 
 function showApp(data) {
@@ -114,11 +116,17 @@ function deleteStack() {
 function toggleStackForm() {
   const form = document.getElementById('stackForm');
   const btn = document.getElementById('toggleStackFormBtn');
-  if (form.style.display === 'none') {
-    form.style.display = 'block';
-    btn.innerText = 'Создать/Редактировать стек ▲';
-  } else {
-    form.style.display = 'none';
-    btn.innerText = 'Создать/Редактировать стек ▼';
-  }
+  form.classList.toggle('open');
+  btn.innerText = form.classList.contains('open') ? 'Создать/Редактировать стек ▲' : 'Создать/Редактировать стек ▼';
+}
+
+// ----------------- Анимация карточек при входе -----------------
+function animateBlocks() {
+  const blocks = document.querySelectorAll('.block');
+  blocks.forEach((block, index) => {
+    setTimeout(() => {
+      block.style.opacity = 1;
+      block.style.transform = 'translateY(0)';
+    }, index * 150); // задержка 150ms между блоками
+  });
 }
