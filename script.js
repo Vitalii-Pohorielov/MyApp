@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadActiveStackSelect();
 });
 
-// Функция плавного появления карточек
+// Анимация появления карточек
 function animateBlocks() {
   const blocks = document.querySelectorAll('.block');
   blocks.forEach((block, index) => {
@@ -84,21 +84,39 @@ function loadStacks() {
   if (select.options.length > 0) loadStack();
 }
 
-function saveStack() {
-  const name = document.getElementById('stackName').value.trim();
-  if (!name) return alert('Введите имя стека');
+// Загружаем выбранный стек в модалке
+function loadStack() {
+  const select = document.getElementById('stackSelect');
+  const name = select.value;
+  if (!name) return;
 
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
-  stacks[name] = {
+  const stack = stacks[name];
+  if (!stack) return;
+
+  document.getElementById('stackName').value = name;
+  document.getElementById('codeElectricity').value = stack.electricity;
+  document.getElementById('codeGas').value = stack.gas;
+  document.getElementById('codeLift').value = stack.lift;
+}
+
+// Сохраняем стек
+function saveStack() {
+  const nameInput = document.getElementById('stackName').value.trim();
+  if (!nameInput) return;
+
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  stacks[nameInput] = {
     electricity: document.getElementById('codeElectricity').value,
     gas: document.getElementById('codeGas').value,
     lift: document.getElementById('codeLift').value
   };
   localStorage.setItem('stacks', JSON.stringify(stacks));
+
   loadStacks();
   loadActiveStackSelect();
-  document.getElementById('stackName').value = '';
 
+  // Кнопка "Сохранено"
   const btn = document.querySelector('#editModal button[onclick="saveStack()"]');
   const originalText = btn.innerText;
   btn.innerText = "Сохранено";
@@ -111,26 +129,7 @@ function saveStack() {
   }, 2000);
 }
 
-function loadStack() {
-  const select = document.getElementById('stackSelect');
-  const name = select.value;
-  const stackInput = document.getElementById('stackName');
-  if (!name) { stackInput.placeholder = ''; return; }
-
-  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
-  const stack = stacks[name];
-  if (!stack) return;
-
-  stackInput.placeholder = name;
-  document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
-  document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
-  document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
-
-  document.getElementById('codeElectricity').value = stack.electricity;
-  document.getElementById('codeGas').value = stack.gas;
-  document.getElementById('codeLift').value = stack.lift;
-}
-
+// Удаляем стек
 function deleteStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
@@ -147,6 +146,7 @@ function openEditModal() {
   const modal = document.getElementById('editModal');
   modal.classList.remove('hidden');
   setTimeout(() => modal.classList.add('opacity-100'), 10);
+  loadStacks();
 }
 
 function closeEditModal() {
@@ -174,6 +174,7 @@ function loadActiveStackSelect() {
   if (select.options.length > 0) selectActiveStack();
 }
 
+// Подставляем коды на главном экране
 function selectActiveStack() {
   const select = document.getElementById('activeStack');
   const name = select.value;
