@@ -1,33 +1,42 @@
-// Получаем элементы
-const taskInput = document.getElementById("taskInput");
-const addBtn = document.getElementById("addBtn");
-const taskList = document.getElementById("taskList");
+function handleCredentialResponse(response) {
+  // Расшифровка JWT токена
+  const data = parseJwt(response.credential);
+  console.log("Пользователь:", data);
 
-// Функция добавления задачи
-function addTask() {
-  const taskText = taskInput.value.trim();
-  if (taskText === "") return;
+  document.querySelector("h1").innerText = "Добро пожаловать, " + data.name;
+  document.querySelector(".container").style.display = "flex";
 
-  const li = document.createElement("li");
-  li.textContent = taskText;
-
-  const delBtn = document.createElement("button");
-  delBtn.textContent = "Удалить";
-  delBtn.addEventListener("click", () => {
-    taskList.removeChild(li);
-  });
-
-  li.appendChild(delBtn);
-  taskList.appendChild(li);
-  taskInput.value = "";
+  // Скрываем кнопку входа
+  document.querySelector("#g_id_onload").style.display = "none";
+  document.querySelector(".g_id_signin").style.display = "none";
 }
 
-// Событие на кнопку "Добавить"
-addBtn.addEventListener("click", addTask);
+function parseJwt(token) {
+  let base64Url = token.split('.')[1];
+  let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  let jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+  return JSON.parse(jsonPayload);
+}
 
-// Событие на Enter в input
-taskInput.addEventListener("keypress", function(e) {
-  if (e.key === "Enter") {
-    addTask();
-  }
-});
+function copyCode(button, code) {
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = button.innerText;
+    button.innerText = "Скопировано!";
+    button.disabled = true;
+    setTimeout(() => {
+      button.innerText = originalText;
+      button.disabled = false;
+    }, 2000);
+  });
+}
+
+function goToSite(url) {
+  window.open(url, "_blank");
+}

@@ -4,97 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Оплата коммунальных</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f4f4f9;
-    }
-    h1 {
-      text-align: center;
-      font-size: 1.5em;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 500px;
-      margin: auto;
-    }
-    .block {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .block img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      margin-bottom: 10px;
-    }
-    .block h2 {
-      margin: 10px 0;
-      font-size: 1.2em;
-    }
-    button {
-      display: block;
-      width: 100%;
-      margin: 8px 0;
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #007bff;
-      color: white;
-      font-size: 16px;
-      transition: 0.2s;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    button:disabled {
-      background-color: #28a745; /* зелёный при "Скопировано" */
-      cursor: default;
-    }
-
-    /* Для маленьких экранов */
-    @media (max-width: 400px) {
-      body {
-        margin: 10px;
-      }
-      .block {
-        padding: 15px;
-      }
-      button {
-        font-size: 14px;
-        padding: 12px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<h1>Оплата коммунальных услуг</h1>
-<div class="container">
+<h1>Авторизация</h1>
+
+<!-- Кнопка входа через Google -->
+<div id="g_id_onload"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse"
+     data-auto_select="false">
+</div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-size="large"
+     data-theme="outline"
+     data-text="sign_in_with"
+     data-shape="rect"
+     data-logo_alignment="left">
+</div>
+
+<!-- Основное содержимое -->
+<div class="container" id="app">
   
   <div class="block">
-    <img src="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/Energy.png" alt="Электричество">
+    <img src="asset/Energy.png" alt="Электричество">
     <h2>Электричество</h2>
     <button onclick="copyCode(this, '6010736321')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1011/balance')">Перейти на сайт</button>
   </div>
   
   <div class="block">
-    <img src="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/download%20(2).png" alt="Газ">
+    <img src="asset/download (2).png" alt="Газ">
     <h2>Газ</h2>
     <button onclick="copyCode(this, '001113278265')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/1049/balance')">Перейти на сайт</button>
   </div>
   
   <div class="block">
-    <img src="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/images.png" alt="Лифт">
+    <img src="asset/images.png" alt="Лифт">
     <h2>Лифт</h2>
     <button onclick="copyCode(this, '97076747')">Копировать код</button>
     <button onclick="goToSite('https://pay.ge/providers/5000/balance')">Перейти на сайт</button>
@@ -102,24 +52,6 @@
 
 </div>
 
-<script>
-  function copyCode(button, code) {
-    navigator.clipboard.writeText(code).then(() => {
-      const originalText = button.innerText;
-      button.innerText = "Скопировано!";
-      button.disabled = true;
-
-      setTimeout(() => {
-        button.innerText = originalText;
-        button.disabled = false;
-      }, 2000); // 2 секунды
-    });
-  }
-
-  function goToSite(url) {
-    window.open(url, "_blank");
-  }
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
