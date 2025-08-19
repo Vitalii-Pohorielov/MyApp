@@ -11,7 +11,7 @@ function copyCode(code, button) {
   });
 }
 
-// Переход по ссылке
+// Открыть ссылку оплаты
 function openLink(url) {
   window.open(url, "_blank");
 }
@@ -20,15 +20,18 @@ function openLink(url) {
 function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
 
+  // Скрываем секцию авторизации
   document.getElementById("auth-section").classList.add("hidden");
-  document.getElementById("user-info").classList.remove("hidden");
-  document.getElementById("cards-section").classList.remove("hidden");
 
+  // Показываем приложение
+  document.getElementById("app-section").classList.remove("hidden");
+
+  // Показываем данные пользователя
   document.getElementById("user-name").innerText = data.name;
   document.getElementById("user-pic").src = data.picture;
 }
 
-// Расшифровка JWT токена
+// Парсим JWT
 function parseJwt(token) {
   let base64Url = token.split('.')[1];
   let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
