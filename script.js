@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
   animateBlocks();
+  loadActiveStackSelect(); // загрузка стека на главный экран
 });
 
 function handleCredentialResponse(response) {
@@ -10,6 +11,7 @@ function handleCredentialResponse(response) {
   localStorage.setItem("user", JSON.stringify(data));
   showApp(data);
   animateBlocks();
+  loadActiveStackSelect();
 }
 
 function showApp(data) {
@@ -84,6 +86,7 @@ function saveStack() {
   };
   localStorage.setItem('stacks', JSON.stringify(stacks));
   loadStacks();
+  loadActiveStackSelect();
   document.getElementById('stackName').value = '';
 
   // Изменяем текст кнопки на "Сохранено" зелёным
@@ -114,7 +117,6 @@ function loadStack() {
   const stack = stacks[name];
   if (!stack) return;
 
-  // Подставляем название стека в placeholder
   stackInput.placeholder = name;
 
   document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
@@ -134,6 +136,7 @@ function deleteStack() {
   delete stacks[name];
   localStorage.setItem('stacks', JSON.stringify(stacks));
   loadStacks();
+  loadActiveStackSelect();
 }
 
 // ----------------- Модальное окно -----------------
@@ -149,6 +152,37 @@ function closeEditModal() {
 window.onclick = function(event) {
   const modal = document.getElementById('editModal');
   if (event.target === modal) closeEditModal();
+}
+
+// ----------------- Выпадающий список на главном экране -----------------
+function loadActiveStackSelect() {
+  const select = document.getElementById('activeStack');
+  select.innerHTML = '';
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  for (let name in stacks) {
+    const option = document.createElement('option');
+    option.value = name;
+    option.text = name;
+    select.appendChild(option);
+  }
+  if (select.options.length > 0) {
+    select.value = select.options[0].value;
+    selectActiveStack();
+  }
+}
+
+function selectActiveStack() {
+  const select = document.getElementById('activeStack');
+  const name = select.value;
+  if (!name) return;
+
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  const stack = stacks[name];
+  if (!stack) return;
+
+  document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
+  document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
+  document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
 }
 
 // ----------------- Анимация карточек -----------------
