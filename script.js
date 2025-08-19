@@ -20,7 +20,7 @@ function showApp(data) {
   document.querySelector(".g_id_signin").style.display = "none";
 
   // Подставляем имя профиля в placeholder поля "Имя стека"
-  const stackInput = document.getElementById('stackName');
+  const stackInput = document.getElementById('stackSelect');
   stackInput.placeholder = data.name;
 }
 
