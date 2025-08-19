@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оплата коммунальных</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+<h1 id="header">Авторизация</h1>
+
+<!-- Кнопка входа через Google -->
+<div id="g_id_onload"
+     data-client_id="749628422725-qu039o4drhetfu6f9eghfaodq1qqfqfs.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse"
+     data-auto_select="false">
+</div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-size="large"
+     data-theme="outline"
+     data-text="sign_in_with"
+     data-shape="rect"
+     data-logo_alignment="left">
+</div>
+
+<!-- Основное содержимое -->
+<div class="container" id="app">
+  
+  <div class="block">
+    <img src="asset/Energy.png" alt="Электричество">
+    <h2>Электричество</h2>
+    <button onclick="copyCode(this, '6010736321')">Копировать код</button>
+    <button onclick="goToSite('https://pay.ge/providers/1011/balance')">Перейти на сайт</button>
+  </div>
+  
+  <div class="block">
+    <img src="asset/download (2).png" alt="Газ">
+    <h2>Газ</h2>
+    <button onclick="copyCode(this, '001113278265')">Копировать код</button>
+    <button onclick="goToSite('https://pay.ge/providers/1049/balance')">Перейти на сайт</button>
+  </div>
+  
+  <div class="block">
+    <img src="asset/images.png" alt="Лифт">
+    <h2>Лифт</h2>
+    <button onclick="copyCode(this, '97076747')">Копировать код</button>
+    <button onclick="goToSite('https://pay.ge/providers/5000/balance')">Перейти на сайт</button>
+  </div>
+
+  <button id="logoutBtn" onclick="logout()">Выйти</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

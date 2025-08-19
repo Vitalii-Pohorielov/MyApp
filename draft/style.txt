@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #f4f4f9;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+.container {
+  display: none; /* скрыто, пока пользователь не вошёл */
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.block {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.block img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.block h2 {
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+#logoutBtn {
+  margin-top: 20px;
+  background-color: #dc3545; /* красная */
+}
+#logoutBtn:hover {
+  background-color: #a71d2a;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #28a745; /* зелёный при "Скопировано" */
+  cursor: default;
+}
+
+#g_id_onload,
+.g_id_signin {
+  display: block;
+  margin: 30px auto;
+}
+
+/* Для маленьких экранов */
+@media (max-width: 400px) {
+  body {
+    margin: 10px;
+  }
+  .block {
+    padding: 15px;
+  }
+  button {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
