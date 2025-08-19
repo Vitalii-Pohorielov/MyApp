@@ -60,16 +60,16 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-// Копирование кодов
+// Копирование кодов с анимацией
 function copyCode(button, code) {
   navigator.clipboard.writeText(code).then(() => {
     const originalText = button.innerText;
     button.innerText = "Скопировано!";
-    button.style.backgroundColor = "#28a745";
+    button.classList.add("bg-green-500", "animate-pulse");
     button.disabled = true;
     setTimeout(() => {
       button.innerText = originalText;
-      button.style.backgroundColor = "#007bff";
+      button.classList.remove("bg-green-500", "animate-pulse");
       button.disabled = false;
     }, 2000);
   });
@@ -122,11 +122,11 @@ function saveStack() {
   const btn = document.querySelector('#editModal button[onclick="saveStack()"]');
   const originalText = btn.innerText;
   btn.innerText = "Сохранено";
-  btn.style.backgroundColor = "#28a745";
+  btn.classList.add("bg-green-500", "animate-pulse");
   btn.disabled = true;
   setTimeout(() => {
     btn.innerText = originalText;
-    btn.style.backgroundColor = "#007bff";
+    btn.classList.remove("bg-green-500", "animate-pulse");
     btn.disabled = false;
   }, 2000);
 }
@@ -142,17 +142,25 @@ function deleteStack() {
   loadActiveStackSelect();
 }
 
-// Модальное окно
+// Модальное окно с анимацией
 function openEditModal() {
   const modal = document.getElementById('editModal');
+  const content = modal.firstElementChild;
   modal.classList.remove('hidden');
-  setTimeout(() => modal.classList.add('opacity-100'), 10);
+  setTimeout(() => {
+    modal.classList.add('opacity-100');
+    content.classList.remove('scale-90', 'opacity-0');
+    content.classList.add('scale-100', 'opacity-100');
+  }, 10);
   document.body.classList.add('overflow-hidden');
   loadStacks();
 }
 
 function closeEditModal() {
   const modal = document.getElementById('editModal');
+  const content = modal.firstElementChild;
+  content.classList.remove('scale-100', 'opacity-100');
+  content.classList.add('scale-90', 'opacity-0');
   modal.classList.remove('opacity-100');
   setTimeout(() => modal.classList.add('hidden'), 300);
   document.body.classList.remove('overflow-hidden');
