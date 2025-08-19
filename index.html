@@ -9,39 +9,47 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <!-- Google авторизация -->
+
+<div class="app-container">
+
+  <!-- Google авторизация -->
+  <div id="auth-section">
     <div id="g_id_onload"
          data-client_id="749628422725-qu039o4drhetfu6f9eghfaodq1qqfqfs.apps.googleusercontent.com"
          data-callback="handleCredentialResponse"
          data-auto_prompt="false">
     </div>
     <div class="g_id_signin" data-type="standard"></div>
+  </div>
 
-    <!-- Приветствие -->
-    <div id="user-info" class="hidden">
-      <img id="user-pic" class="avatar" alt="User Avatar">
-      <p id="user-name"></p>
+  <!-- Информация о пользователе -->
+  <div id="user-info" class="hidden">
+    <img id="user-pic" class="avatar" alt="User Avatar">
+    <p id="user-name"></p>
+  </div>
+
+  <!-- Блок с карточками услуг -->
+  <div class="cards" id="cards-section">
+    <div class="card">
+      <img src="asset/Energy.png" alt="Электричество" class="icon">
+      <button onclick="copyCode('6010736321', this)">Скопировать код</button>
+      <button onclick="openLink('https://pay.ge/providers/1011/balance')">Оплатить</button>
     </div>
 
-    <!-- Блок кнопок -->
-    <div class="cards">
-      <div class="card">
-        <img src="asset/Energy.png" alt="Электричество" class="icon">
-        <button onclick="copyCode('6010736321', this)">Скопировать код</button>
-        <button onclick="openLink('https://pay.ge/providers/1011/balance')">Оплатить</button>
-      </div>
-      <div class="card">
-        <img src="asset/download (2).png" alt="Газ" class="icon">
-        <button onclick="copyCode('001113278265', this)">Скопировать код</button>
-        <button onclick="openLink('https://pay.ge/providers/1049/balance')">Оплатить</button>
-      </div>
-      <div class="card">
-        <img src="asset/images.png" alt="Лифт" class="icon">
-        <button onclick="copyCode('97076747', this)">Скопировать код</button>
-        <button onclick="openLink('https://pay.ge/providers/5000/balance')">Оплатить</button>
-      </div>
+    <div class="card">
+      <img src="asset/download (2).png" alt="Газ" class="icon">
+      <button onclick="copyCode('001113278265', this)">Скопировать код</button>
+      <button onclick="openLink('https://pay.ge/providers/1049/balance')">Оплатить</button>
+    </div>
+
+    <div class="card">
+      <img src="asset/images.png" alt="Лифт" class="icon">
+      <button onclick="copyCode('97076747', this)">Скопировать код</button>
+      <button onclick="openLink('https://pay.ge/providers/5000/balance')">Оплатить</button>
     </div>
   </div>
+
+</div>
+
 </body>
 </html>
