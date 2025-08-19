@@ -84,7 +84,6 @@ function loadStacks() {
   if (select.options.length > 0) loadStack();
 }
 
-// Загружаем выбранный стек в модалке
 function loadStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
@@ -100,7 +99,6 @@ function loadStack() {
   document.getElementById('codeLift').value = stack.lift;
 }
 
-// Сохраняем стек
 function saveStack() {
   const nameInput = document.getElementById('stackName').value.trim();
   if (!nameInput) return;
@@ -128,7 +126,7 @@ function saveStack() {
   }, 2000);
 }
 
-// Удаляем стек
+// Удаление стека
 function deleteStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
@@ -140,12 +138,25 @@ function deleteStack() {
   loadActiveStackSelect();
 }
 
-// Модальное окно с блокировкой прокрутки
+// Удаление выбранного стека на главном экране
+function deleteActiveStack() {
+  const select = document.getElementById('activeStack');
+  const name = select.value;
+  if (!name) return;
+
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  delete stacks[name];
+  localStorage.setItem('stacks', JSON.stringify(stacks));
+
+  loadActiveStackSelect();
+}
+
+// Модальное окно с блокировкой скролла
 function openEditModal() {
   const modal = document.getElementById('editModal');
   modal.classList.remove('hidden');
   setTimeout(() => modal.classList.add('opacity-100'), 10);
-  document.body.classList.add('overflow-hidden'); // блокируем прокрутку
+  document.body.classList.add('overflow-hidden');
   loadStacks();
 }
 
@@ -153,7 +164,7 @@ function closeEditModal() {
   const modal = document.getElementById('editModal');
   modal.classList.remove('opacity-100');
   setTimeout(() => modal.classList.add('hidden'), 300);
-  document.body.classList.remove('overflow-hidden'); // разблокируем прокрутку
+  document.body.classList.remove('overflow-hidden');
 }
 
 window.onclick = function(event) {
@@ -161,7 +172,7 @@ window.onclick = function(event) {
   if (event.target === modal) closeEditModal();
 }
 
-// Выпадающий список на главном экране
+// Выпадающий список и подстановка кодов
 function loadActiveStackSelect() {
   const select = document.getElementById('activeStack');
   select.innerHTML = '';
@@ -175,7 +186,6 @@ function loadActiveStackSelect() {
   if (select.options.length > 0) selectActiveStack();
 }
 
-// Подставляем коды на главном экране
 function selectActiveStack() {
   const select = document.getElementById('activeStack');
   const name = select.value;

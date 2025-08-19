@@ -3,91 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Оплата коммунальных</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Коммунальные платежи</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="script.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
 
-<h1 id="header" class="text-2xl font-bold text-center my-4">Авторизация</h1>
+  <!-- Авторизация / Header -->
+  <h1 id="header" class="text-xl font-bold text-center my-4">Авторизация</h1>
 
-<!-- Google Sign-In -->
-<div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse"
-     data-auto_select="false">
-</div>
-<div class="g_id_signin flex justify-center my-6"
-     data-type="standard"
-     data-size="large"
-     data-theme="outline"
-     data-text="sign_in_with"
-     data-shape="rect"
-     data-logo_alignment="left">
-</div>
+  <!-- Google Sign-In -->
+  <div id="g_id_onload"
+       data-client_id="YOUR_GOOGLE_CLIENT_ID"
+       data-callback="handleCredentialResponse">
+  </div>
+  <div class="g_id_signin"
+       data-type="standard"
+       data-size="large"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-shape="rect"
+       data-logo_alignment="left">
+  </div>
 
-<!-- Основное приложение -->
-<div class="container mx-auto p-4 hidden flex-col gap-4" id="app">
+  <!-- Главный контейнер приложения -->
+  <div class="container hidden flex-col p-4 space-y-4 max-w-md mx-auto">
 
-  <!-- Выпадающий список выбора стека -->
-  <label for="activeStack" class="block font-semibold mb-1">Выберите стек кодов:</label>
-  <select id="activeStack" onchange="selectActiveStack()" class="w-full p-2 border rounded-lg mb-4"></select>
-
-  <!-- Кнопка открытия модального окна -->
-  <button id="openEditBtn" onclick="openEditModal()" class="w-full bg-blue-500 hover:bg-blue-600 transform hover:-translate-y-1 transition duration-200 text-white py-2 rounded-lg mb-4">Редактировать коды</button>
-
-  <!-- Карточки коммунальных услуг -->
-  <div class="grid grid-cols-1 gap-4">
-    <div class="bg-white rounded-xl shadow p-4 flex flex-col items-center transform opacity-0 -translate-y-8 transition duration-500 block">
-      <img src="asset/Energy.png" alt="Электричество" class="w-16 h-16 mb-2">
-      <h2 class="text-lg font-semibold mb-2">Электричество</h2>
-      <button id="btnElectricity" class="w-full bg-blue-500 hover:bg-blue-600 transform hover:-translate-y-1 transition duration-200 text-white py-2 rounded-lg mb-2">Копировать код</button>
-      <button onclick="goToSite('https://pay.ge/providers/1011/balance')" class="w-full bg-gray-200 hover:bg-gray-300 py-2 rounded-lg transition">Перейти на сайт</button>
+    <!-- Выбор стека + кнопка удаления -->
+    <div class="flex items-center space-x-2 mb-4">
+      <select id="activeStack" class="flex-1 p-2 border rounded-lg" onchange="selectActiveStack()"></select>
+      <button onclick="deleteActiveStack()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">X</button>
     </div>
 
-    <div class="bg-white rounded-xl shadow p-4 flex flex-col items-center transform opacity-0 -translate-y-8 transition duration-500 block">
-      <img src="asset/download (2).png" alt="Газ" class="w-16 h-16 mb-2">
-      <h2 class="text-lg font-semibold mb-2">Газ</h2>
-      <button id="btnGas" class="w-full bg-blue-500 hover:bg-blue-600 transform hover:-translate-y-1 transition duration-200 text-white py-2 rounded-lg mb-2">Копировать код</button>
-      <button onclick="goToSite('https://pay.ge/providers/1049/balance')" class="w-full bg-gray-200 hover:bg-gray-300 py-2 rounded-lg transition">Перейти на сайт</button>
+    <!-- Кнопки кодов -->
+    <div class="grid grid-cols-2 gap-2">
+      <button id="btnElectricity" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Электричество</button>
+      <button onclick="goToSite('https://pay.ge/providers/1011/balance')" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Оплатить</button>
+
+      <button id="btnGas" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Газ</button>
+      <button onclick="goToSite('https://pay.ge/providers/1049/balance')" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Оплатить</button>
+
+      <button id="btnLift" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Лифт</button>
+      <button onclick="goToSite('https://pay.ge/providers/5000/balance')" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Оплатить</button>
     </div>
 
-    <div class="bg-white rounded-xl shadow p-4 flex flex-col items-center transform opacity-0 -translate-y-8 transition duration-500 block">
-      <img src="asset/images.png" alt="Лифт" class="w-16 h-16 mb-2">
-      <h2 class="text-lg font-semibold mb-2">Лифт</h2>
-      <button id="btnLift" class="w-full bg-blue-500 hover:bg-blue-600 transform hover:-translate-y-1 transition duration-200 text-white py-2 rounded-lg mb-2">Копировать код</button>
-      <button onclick="goToSite('https://pay.ge/providers/5000/balance')" class="w-full bg-gray-200 hover:bg-gray-300 py-2 rounded-lg transition">Перейти на сайт</button>
+    <!-- Кнопка редактирования стека -->
+    <button onclick="openEditModal()" class="mt-4 p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">Создать/Редактировать стек</button>
+  </div>
+
+  <!-- Модальное окно редактирования стека -->
+  <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center opacity-0 transition-opacity duration-300">
+    <div class="bg-white p-6 rounded-lg w-96 max-w-full">
+      <h2 class="text-lg font-bold mb-4">Редактирование стека</h2>
+      <select id="stackSelect" class="w-full p-2 border rounded-lg mb-2" onchange="loadStack()"></select>
+      <input type="text" id="stackName" placeholder="Имя стека" class="w-full p-2 border rounded-lg mb-2">
+      <input type="text" id="codeElectricity" class="w-full p-2 border rounded-lg mb-2" placeholder="Электричество">
+      <input type="text" id="codeGas" class="w-full p-2 border rounded-lg mb-2" placeholder="Газ">
+      <input type="text" id="codeLift" class="w-full p-2 border rounded-lg mb-4" placeholder="Лифт">
+      <div class="flex justify-end space-x-2">
+        <button onclick="saveStack()" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Сохранить</button>
+        <button onclick="closeEditModal()" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Закрыть</button>
+      </div>
     </div>
   </div>
 
-  <!-- Кнопка выхода -->
-  <button id="logoutBtn" onclick="logout()" class="w-full bg-red-500 hover:bg-red-600 transform hover:-translate-y-1 transition duration-200 text-white py-2 rounded-lg mt-4">Выйти</button>
-</div>
-
-<!-- Модальное окно редактирования стека -->
-<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden opacity-0 z-50 flex justify-center items-center transition-opacity duration-300">
-  <div class="bg-white rounded-xl p-6 w-11/12 max-w-md relative transform scale-95 transition-transform duration-300">
-    <span class="absolute top-2 right-3 text-gray-500 text-2xl cursor-pointer" onclick="closeEditModal()">&times;</span>
-    <h3 class="text-lg font-semibold mb-4">Редактирование стека</h3>
-    <select id="stackSelect" class="w-full p-2 border rounded-lg mb-2" onchange="loadStack()"></select>
-    <button onclick="deleteStack()" class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg mb-4 transition">Удалить выбранный</button>
-
-    <label class="block font-semibold mb-1">Имя стека:
-      <input type="text" id="stackName" placeholder="" class="w-full p-2 border rounded-lg mb-2">
-    </label>
-    <label class="block font-semibold mb-1">Электричество:
-      <input type="text" id="codeElectricity" class="w-full p-2 border rounded-lg mb-2">
-    </label>
-    <label class="block font-semibold mb-1">Газ:
-      <input type="text" id="codeGas" class="w-full p-2 border rounded-lg mb-2">
-    </label>
-    <label class="block font-semibold mb-1">Лифт:
-      <input type="text" id="codeLift" class="w-full p-2 border rounded-lg mb-4">
-    </label>
-    <button onclick="saveStack()" class="w-full bg-blue-500 hover:bg-blue-600 transform hover:-translate-y-1 transition duration-200 text-white py-2 rounded-lg">Сохранить стек</button>
-  </div>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
