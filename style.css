@@ -1,140 +1,46 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background: #f4f4f9;
-  text-align: center;
+:root {
+  --color-primary-50: #eff2f5;
+  --color-primary-100: #b4cef7;
+  --color-primary-200: #81abf1;
+  --color-primary-300: #4d89eb;
+  --color-primary-400: #1967e6;
+  --color-primary-500: #1450b2;
+  --color-primary-600: #0e397e;
+  --color-primary-700: #08214b;
+  --color-primary-800: #030a17;
 }
 
-h1 {
-  font-size: 1.5em;
-}
+/* Utility Classes */
+.bg-primary-50 { background-color: var(--color-primary-50); }
+.text-primary-50 { color: var(--color-primary-50); }
+.border-primary-50 { border-color: var(--color-primary-50); }
+.bg-primary-100 { background-color: var(--color-primary-100); }
+.text-primary-100 { color: var(--color-primary-100); }
+.border-primary-100 { border-color: var(--color-primary-100); }
+.bg-primary-200 { background-color: var(--color-primary-200); }
+.text-primary-200 { color: var(--color-primary-200); }
+.border-primary-200 { border-color: var(--color-primary-200); }
+.bg-primary-300 { background-color: var(--color-primary-300); }
+.text-primary-300 { color: var(--color-primary-300); }
+.border-primary-300 { border-color: var(--color-primary-300); }
+.bg-primary-400 { background-color: var(--color-primary-400); }
+.text-primary-400 { color: var(--color-primary-400); }
+.border-primary-400 { border-color: var(--color-primary-400); }
+.bg-primary-500 { background-color: var(--color-primary-500); }
+.text-primary-500 { color: var(--color-primary-500); }
+.border-primary-500 { border-color: var(--color-primary-500); }
+.bg-primary-600 { background-color: var(--color-primary-600); }
+.text-primary-600 { color: var(--color-primary-600); }
+.border-primary-600 { border-color: var(--color-primary-600); }
+.bg-primary-700 { background-color: var(--color-primary-700); }
+.text-primary-700 { color: var(--color-primary-700); }
+.border-primary-700 { border-color: var(--color-primary-700); }
+.bg-primary-800 { background-color: var(--color-primary-800); }
+.text-primary-800 { color: var(--color-primary-800); }
+.border-primary-800 { border-color: var(--color-primary-800); }
 
-.container {
-  display: none;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 500px;
-  margin: auto;
-}
-
-label {
-  font-weight: bold;
-  margin-top: 10px;
-  display: block;
-}
-
-select, input {
-  width: 100%;
-  padding: 8px;
-  margin: 5px 0 10px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-button {
-  display: block;
-  width: 100%;
-  margin: 8px 0;
-  padding: 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  transition: 0.2s, transform 0.2s;
-}
-
-button:hover:not(:disabled) {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
-
-button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-button:disabled {
-  background-color: #28a745;
-  cursor: default;
-}
-
-#logoutBtn {
-  margin-top: 20px;
-  background-color: #dc3545;
-}
-
-#logoutBtn:hover {
-  background-color: #a71d2a;
-}
-
-.g_id_signin, #g_id_onload {
-  display: block;
-  margin: 30px auto;
-}
-
-.block {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.block img {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-.block h2 {
-  margin: 10px 0;
-  font-size: 1.2em;
-}
-
-/* Модальное окно */
-.modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1000; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 10% auto; 
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%; 
-  max-width: 400px;
-  position: relative;
-}
-
-.close {
-  color: #aaa;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.close:hover {
-  color: black;
-}
-
-/* Адаптив */
-@media (max-width: 400px) {
-  body { margin: 10px; }
-  .block { padding: 15px; }
-  button { font-size: 14px; padding: 12px; }
-}
+/* Дополнительные стили */
+body { font-family: Arial, sans-serif; background-color: var(--color-primary-50); }
+button { transition: all 0.2s; cursor: pointer; }
+button:disabled { opacity: 0.7; cursor: default; }
+.block { opacity: 0; transform: translateY(20px); }
