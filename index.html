@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Коммунальные платежи</title>
-  
+
+  <!-- Фавикон -->
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/unnamed%20(1).png">
+
   <!-- Google Sign-In -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  
+
   <!-- Tailwind CSS с поддержкой dark mode -->
   <script>
     tailwind.config = {
@@ -15,13 +18,19 @@
     }
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Основной скрипт -->
   <script src="script.js" defer></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
 
+  <!-- Логотип сверху по центру -->
+  <div class="flex justify-center my-4">
+    <img src="https://raw.githubusercontent.com/Vitalii-Pohorielov/MyApp/refs/heads/main/asset/unnamed%20(1).png" alt="Логотип" class="h-24 w-24 object-contain">
+  </div>
+
   <h1 id="header" class="text-xl font-bold text-center my-4 text-black dark:text-white">Авторизация</h1>
+ 
 
   <!-- Google Sign-In по центру -->
   <div class="flex justify-center my-4">
