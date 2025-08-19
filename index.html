@@ -13,7 +13,7 @@
 
 <!-- Кнопка входа через Google -->
 <div id="g_id_onload"
-     data-client_id="749628422725-qu039o4drhetfu6f9eghfaodq1qqfqfs.apps.googleusercontent.com"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
      data-callback="handleCredentialResponse"
      data-auto_select="false">
 </div>
@@ -35,12 +35,15 @@
     <select id="stackSelect" onchange="loadStack()"></select>
     <button onclick="deleteStack()">Удалить выбранный</button>
 
-    <h4>Создать/Редактировать стек</h4>
-    <label>Имя стека: <input type="text" id="stackName"></label><br>
-    <label>Электричество: <input type="text" id="codeElectricity"></label><br>
-    <label>Газ: <input type="text" id="codeGas"></label><br>
-    <label>Лифт: <input type="text" id="codeLift"></label><br>
-    <button onclick="saveStack()">Сохранить стек</button>
+    <button id="toggleStackFormBtn" onclick="toggleStackForm()">Создать/Редактировать стек ▼</button>
+
+    <div id="stackForm" style="display: none;">
+      <label>Имя стека: <input type="text" id="stackName"></label><br>
+      <label>Электричество: <input type="text" id="codeElectricity"></label><br>
+      <label>Газ: <input type="text" id="codeGas"></label><br>
+      <label>Лифт: <input type="text" id="codeLift"></label><br>
+      <button onclick="saveStack()">Сохранить стек</button>
+    </div>
   </div>
 
   <!-- Карточки коммунальных услуг -->

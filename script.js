@@ -109,3 +109,16 @@ function deleteStack() {
   localStorage.setItem('stacks', JSON.stringify(stacks));
   loadStacks();
 }
+
+// ----------------- Показ/скрытие формы редактирования -----------------
+function toggleStackForm() {
+  const form = document.getElementById('stackForm');
+  const btn = document.getElementById('toggleStackFormBtn');
+  if (form.style.display === 'none') {
+    form.style.display = 'block';
+    btn.innerText = 'Создать/Редактировать стек ▲';
+  } else {
+    form.style.display = 'none';
+    btn.innerText = 'Создать/Редактировать стек ▼';
+  }
+}
