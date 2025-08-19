@@ -18,6 +18,10 @@ function showApp(data) {
   document.querySelector(".container").style.display = "flex";
   document.querySelector("#g_id_onload").style.display = "none";
   document.querySelector(".g_id_signin").style.display = "none";
+
+  // Подставляем имя профиля в placeholder поля "Имя стека"
+  const stackInput = document.getElementById('stackName');
+  stackInput.placeholder = data.name;
 }
 
 function logout() {
