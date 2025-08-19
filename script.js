@@ -2,6 +2,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
   loadActiveStackSelect();
+
+  // Темная тема
+  const themeBtn = document.getElementById("themeToggle");
+  const html = document.documentElement;
+
+  // Загружаем сохранённую тему
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    html.classList.add("dark");
+    themeBtn.innerText = "Светлая тема";
+  } else {
+    html.classList.remove("dark");
+    themeBtn.innerText = "Тёмная тема";
+  }
+
+  // Переключение темы
+  themeBtn.addEventListener("click", () => {
+    if (html.classList.contains("dark")) {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      themeBtn.innerText = "Тёмная тема";
+    } else {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      themeBtn.innerText = "Светлая тема";
+    }
+  });
 });
 
 // Google Sign-In

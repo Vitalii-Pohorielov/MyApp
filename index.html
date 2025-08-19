@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +8,16 @@
   <script src="script.js" defer></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
 
-  <h1 id="header" class="text-xl font-bold text-center my-4">Авторизация</h1>
+  <h1 id="header" class="text-xl font-bold text-center my-4 text-black dark:text-white">Авторизация</h1>
+
+  <!-- Переключение темы -->
+  <div class="flex justify-center mb-4">
+    <button id="themeToggle" class="p-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition">
+      Тёмная тема
+    </button>
+  </div>
 
   <!-- Google Sign-In по центру -->
   <div class="flex justify-center my-4">
@@ -29,50 +36,50 @@
   </div>
 
   <!-- Главный контейнер приложения -->
-  <div class="container hidden flex-col p-4 space-y-4 max-w-md mx-auto">
+  <div class="container hidden flex-col p-4 space-y-4 max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg transition-colors duration-300">
 
     <!-- Выбор стека (только select) -->
-    <select id="activeStack" class="w-full p-2 border rounded-lg mb-4" onchange="selectActiveStack()"></select>
+    <select id="activeStack" class="w-full p-2 border rounded-lg mb-4 bg-white dark:bg-gray-700 text-black dark:text-white" onchange="selectActiveStack()"></select>
 
     <!-- Кнопки кодов -->
     <div class="grid grid-cols-2 gap-2">
-      <button id="btnElectricity" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Электричество</button>
-      <button onclick="goToSite('https://pay.ge/providers/1011/balance')" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Оплатить</button>
+      <button id="btnElectricity" class="p-2 bg-blue-500 dark:bg-blue-700 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-600 transition">Электричество</button>
+      <button onclick="goToSite('https://pay.ge/providers/1011/balance')" class="p-2 bg-gray-300 dark:bg-gray-600 text-black dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 transition">Оплатить</button>
 
-      <button id="btnGas" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Газ</button>
-      <button onclick="goToSite('https://pay.ge/providers/1049/balance')" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Оплатить</button>
+      <button id="btnGas" class="p-2 bg-blue-500 dark:bg-blue-700 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-600 transition">Газ</button>
+      <button onclick="goToSite('https://pay.ge/providers/1049/balance')" class="p-2 bg-gray-300 dark:bg-gray-600 text-black dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 transition">Оплатить</button>
 
-      <button id="btnLift" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Лифт</button>
-      <button onclick="goToSite('https://pay.ge/providers/5000/balance')" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Оплатить</button>
+      <button id="btnLift" class="p-2 bg-blue-500 dark:bg-blue-700 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-600 transition">Лифт</button>
+      <button onclick="goToSite('https://pay.ge/providers/5000/balance')" class="p-2 bg-gray-300 dark:bg-gray-600 text-black dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 transition">Оплатить</button>
     </div>
 
     <!-- Кнопка редактирования стека -->
-    <button onclick="openEditModal()" class="mt-4 p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">Создать/Редактировать стек</button>
+    <button onclick="openEditModal()" class="mt-4 p-2 bg-green-500 dark:bg-green-700 text-white rounded-lg hover:bg-green-600 dark:hover:bg-green-600 transition">Создать/Редактировать стек</button>
 
     <!-- Кнопка Выйти (внизу) -->
     <div class="flex justify-center mt-4">
-      <button onclick="logout()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Выйти</button>
+      <button onclick="logout()" class="p-2 bg-red-500 dark:bg-red-700 text-white rounded-lg hover:bg-red-600 dark:hover:bg-red-600 transition">Выйти</button>
     </div>
   </div>
 
   <!-- Модальное окно редактирования стека -->
   <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center opacity-0 transition-opacity duration-300">
-    <div class="bg-white p-6 rounded-lg w-96 max-w-full">
-      <h2 class="text-lg font-bold mb-4">Редактирование стека</h2>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-96 max-w-full transition-colors duration-300">
+      <h2 class="text-lg font-bold mb-4 text-black dark:text-white">Редактирование стека</h2>
 
       <!-- Выбор стека + кнопка удаления "X" -->
       <div class="flex items-center space-x-2 mb-2">
-        <select id="stackSelect" class="flex-1 p-2 border rounded-lg" onchange="loadStack()"></select>
-        <button onclick="deleteStack()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">X</button>
+        <select id="stackSelect" class="flex-1 p-2 border rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white" onchange="loadStack()"></select>
+        <button onclick="deleteStack()" class="p-2 bg-red-500 dark:bg-red-700 text-white rounded-lg hover:bg-red-600 dark:hover:bg-red-600 transition">X</button>
       </div>
 
-      <input type="text" id="stackName" placeholder="Имя стека" class="w-full p-2 border rounded-lg mb-2">
-      <input type="text" id="codeElectricity" class="w-full p-2 border rounded-lg mb-2" placeholder="Электричество">
-      <input type="text" id="codeGas" class="w-full p-2 border rounded-lg mb-2" placeholder="Газ">
-      <input type="text" id="codeLift" class="w-full p-2 border rounded-lg mb-4" placeholder="Лифт">
+      <input type="text" id="stackName" placeholder="Имя стека" class="w-full p-2 border rounded-lg mb-2 bg-white dark:bg-gray-700 text-black dark:text-white">
+      <input type="text" id="codeElectricity" class="w-full p-2 border rounded-lg mb-2 bg-white dark:bg-gray-700 text-black dark:text-white" placeholder="Электричество">
+      <input type="text" id="codeGas" class="w-full p-2 border rounded-lg mb-2 bg-white dark:bg-gray-700 text-black dark:text-white" placeholder="Газ">
+      <input type="text" id="codeLift" class="w-full p-2 border rounded-lg mb-4 bg-white dark:bg-gray-700 text-black dark:text-white" placeholder="Лифт">
       <div class="flex justify-end space-x-2">
-        <button onclick="saveStack()" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Сохранить</button>
-        <button onclick="closeEditModal()" class="p-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition">Закрыть</button>
+        <button onclick="saveStack()" class="p-2 bg-blue-500 dark:bg-blue-700 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-600 transition">Сохранить</button>
+        <button onclick="closeEditModal()" class="p-2 bg-gray-300 dark:bg-gray-600 text-black dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 transition">Закрыть</button>
       </div>
     </div>
   </div>
