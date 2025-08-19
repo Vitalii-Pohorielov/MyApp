@@ -1,26 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user) showApp(user);
-  animateBlocks();
   loadActiveStackSelect();
 });
-
-// Анимация карточек
-function animateBlocks() {
-  const blocks = document.querySelectorAll('.block');
-  blocks.forEach((block, index) => {
-    setTimeout(() => {
-      block.classList.add('opacity-100', 'translate-y-0');
-    }, index * 150);
-  });
-}
 
 // Google Sign-In
 function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
   localStorage.setItem("user", JSON.stringify(data));
   showApp(data);
-  animateBlocks();
   loadActiveStackSelect();
 }
 
@@ -43,10 +31,7 @@ function parseJwt(token) {
   let base64Url = token.split('.')[1];
   let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   let jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-      .join('')
+    atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
   );
   return JSON.parse(jsonPayload);
 }
@@ -70,7 +55,7 @@ function goToSite(url) {
   window.open(url, "_blank");
 }
 
-// Загрузка стеков
+// Загрузка и выбор стеков
 function loadStacks() {
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const select = document.getElementById('stackSelect');
@@ -110,7 +95,6 @@ function saveStack() {
     lift: document.getElementById('codeLift').value
   };
   localStorage.setItem('stacks', JSON.stringify(stacks));
-
   loadStacks();
   loadActiveStackSelect();
 
@@ -126,7 +110,6 @@ function saveStack() {
   }, 2000);
 }
 
-// Удаление стека в модальном окне
 function deleteStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
@@ -159,4 +142,29 @@ window.onclick = function(event) {
   if (event.target === modal) closeEditModal();
 }
 
-// Главный селект и
+// Главный селект
+function loadActiveStackSelect() {
+  const select = document.getElementById('activeStack');
+  select.innerHTML = '';
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  for (let name in stacks) {
+    const option = document.createElement('option');
+    option.value = name;
+    option.text = name;
+    select.appendChild(option);
+  }
+  if (select.options.length > 0) selectActiveStack();
+}
+
+function selectActiveStack() {
+  const select = document.getElementById('activeStack');
+  const name = select.value;
+  if (!name) return;
+  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
+  const stack = stacks[name];
+  if (!stack) return;
+
+  document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
+  document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
+  document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
+}
