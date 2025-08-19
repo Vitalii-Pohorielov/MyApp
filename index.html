@@ -31,10 +31,7 @@
   <!-- Главный контейнер приложения -->
   <div class="container hidden flex-col p-4 space-y-4 max-w-md mx-auto">
 
-    <!-- Кнопка Выйти -->
-    <div class="flex justify-end mb-2">
-      <button onclick="logout()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Выйти</button>
-    </div>
+
 
     <!-- Выбор стека (только select) -->
     <select id="activeStack" class="w-full p-2 border rounded-lg mb-4" onchange="selectActiveStack()"></select>
@@ -76,6 +73,11 @@
       </div>
     </div>
   </div>
+
+      <!-- Кнопка Выйти -->
+    <div class="flex justify-end mb-2">
+      <button onclick="logout()" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Выйти</button>
+    </div>
 
 </body>
 </html>
