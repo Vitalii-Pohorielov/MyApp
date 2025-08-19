@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadActiveStackSelect();
 });
 
-// Анимация появления карточек
+// Анимация карточек
 function animateBlocks() {
   const blocks = document.querySelectorAll('.block');
   blocks.forEach((block, index) => {
@@ -70,7 +70,7 @@ function goToSite(url) {
   window.open(url, "_blank");
 }
 
-// Стек кодов
+// Загрузка стеков
 function loadStacks() {
   const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
   const select = document.getElementById('stackSelect');
@@ -126,7 +126,7 @@ function saveStack() {
   }, 2000);
 }
 
-// Удаление стека
+// Удаление стека в модальном окне
 function deleteStack() {
   const select = document.getElementById('stackSelect');
   const name = select.value;
@@ -138,20 +138,7 @@ function deleteStack() {
   loadActiveStackSelect();
 }
 
-// Удаление выбранного стека на главном экране
-function deleteActiveStack() {
-  const select = document.getElementById('activeStack');
-  const name = select.value;
-  if (!name) return;
-
-  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
-  delete stacks[name];
-  localStorage.setItem('stacks', JSON.stringify(stacks));
-
-  loadActiveStackSelect();
-}
-
-// Модальное окно с блокировкой скролла
+// Модальное окно
 function openEditModal() {
   const modal = document.getElementById('editModal');
   modal.classList.remove('hidden');
@@ -172,30 +159,4 @@ window.onclick = function(event) {
   if (event.target === modal) closeEditModal();
 }
 
-// Выпадающий список и подстановка кодов
-function loadActiveStackSelect() {
-  const select = document.getElementById('activeStack');
-  select.innerHTML = '';
-  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
-  for (let name in stacks) {
-    const option = document.createElement('option');
-    option.value = name;
-    option.text = name;
-    select.appendChild(option);
-  }
-  if (select.options.length > 0) selectActiveStack();
-}
-
-function selectActiveStack() {
-  const select = document.getElementById('activeStack');
-  const name = select.value;
-  if (!name) return;
-
-  const stacks = JSON.parse(localStorage.getItem('stacks')) || {};
-  const stack = stacks[name];
-  if (!stack) return;
-
-  document.getElementById('btnElectricity').setAttribute('onclick', `copyCode(this, '${stack.electricity}')`);
-  document.getElementById('btnGas').setAttribute('onclick', `copyCode(this, '${stack.gas}')`);
-  document.getElementById('btnLift').setAttribute('onclick', `copyCode(this, '${stack.lift}')`);
-}
+// Главный селект и
