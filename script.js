@@ -116,7 +116,6 @@ function saveStack() {
   loadStacks();
   loadActiveStackSelect();
 
-  // Кнопка "Сохранено"
   const btn = document.querySelector('#editModal button[onclick="saveStack()"]');
   const originalText = btn.innerText;
   btn.innerText = "Сохранено";
@@ -141,11 +140,12 @@ function deleteStack() {
   loadActiveStackSelect();
 }
 
-// Модальное окно
+// Модальное окно с блокировкой прокрутки
 function openEditModal() {
   const modal = document.getElementById('editModal');
   modal.classList.remove('hidden');
   setTimeout(() => modal.classList.add('opacity-100'), 10);
+  document.body.classList.add('overflow-hidden'); // блокируем прокрутку
   loadStacks();
 }
 
@@ -153,6 +153,7 @@ function closeEditModal() {
   const modal = document.getElementById('editModal');
   modal.classList.remove('opacity-100');
   setTimeout(() => modal.classList.add('hidden'), 300);
+  document.body.classList.remove('overflow-hidden'); // разблокируем прокрутку
 }
 
 window.onclick = function(event) {
